@@ -1,0 +1,15 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+
+# AWS
+*.pem
+
