@@ -11,7 +11,7 @@ iam_instance_profile {
     security_groups             = [aws_security_group.ec2_sg.id]
   }
 
-  user_data = base64encode(<<EOF
+  user_data = base64encode(<<-EOF
 #!/bin/bash
 yum update -y
 yum install -y docker aws-cli
@@ -21,9 +21,9 @@ usermod -a -G docker ec2-user
 
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 277541735635.dkr.ecr.us-east-1.amazonaws.com
 
-docker pull 277541735635.dkr.ecr.us-east-1.amazonaws.com/devops-app:1.0
+docker pull 277541735635.dkr.ecr.us-east-1.amazonaws.com/devops-app:$${IMAGE_TAG}
 
-docker run -d -p 80:3000 277541735635.dkr.ecr.us-east-1.amazonaws.com/devops-app:1.0
+docker run -d -p 80:3000 277541735635.dkr.ecr.us-east-1.amazonaws.com/devops-app:$${IMAGE_TAG}
 EOF
 )
 
